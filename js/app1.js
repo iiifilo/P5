@@ -7,15 +7,31 @@ function point(name, lat, long) {
         position: new google.maps.LatLng(lat, long),
         title: name,
         map: map,
+        animation: google.maps.Animation.DROP,
         draggable: false
-    });    
+    });  
+    google.maps.event.addListener(marker, 'click', toggleBounce);  
 }
+
+function toggleBounce() {
+
+  if (marker.getAnimation() != null) {
+    marker.setAnimation(null);
+  } else {
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+  }
+}
+
+google.maps.event.addDomListener(window, 'load', point);
 //*****************Starting Point on my map*****************
 var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 16,
     center: new google.maps.LatLng(43.771341, 11.256875),
     mapTypeId: google.maps.MapTypeId.ROADMAP
 });
+
+
+
 //*******************view Model starts here******************
 var viewModel = {
     points: ko.observableArray([
