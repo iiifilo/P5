@@ -1,17 +1,12 @@
-<meta charset="UTF-8">
-    <title> Florence-Italy City Guide</title>
-</head>
-<body>
-
-<ul  class="place-list" data-bind="foreach: points" >
-        <li data-bind="text: name"></li>
-    </ul>	
-    
- <div id="map"></div> 
- <style type="text/css">
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Marker Animations</title>
+   <style type="text/css">
   html { height: 100% }
   body { height: 100%; margin: 0; padding: 0;  }
-  #map { height: 100% }
+  #map-canvas { height: 100% }
 .place-list {
   
   display: inline-block;
@@ -31,13 +26,18 @@
   margin: auto;
   font-weight: bolder;
   border-radius: 25px;
-
 }
-
- </style>
- <script id="pointsTmpl" type="text/html"> </script>    
+</style>       
+  </head>
+  <body>
+    <ul class="place-list" data-bind="foreach: Points" >
+        <li data-bind="text: name, click: $parent.markerBounce" ></li>
+    </ul> 
+     
+    <div id="map-canvas"></div>
+       
  <script type="text/javascript" src="https://maps.googleapis.Com/maps/api/js?key=AIzaSyCPgww-LhtxoQqq2zLI1_gOU1L2XayS-rE"> </script>
  <script src="js/lib/knockout-3.2.0.js"></script>
- <script src="js/app1.js"></script>
-</body>
+ <script src="js/app.js"></script>
+  </body>
 </html>
