@@ -27,10 +27,10 @@ var Points = [ {
     name: 'Santa Croce-Church',  
     lat: 43.768816,
     long: 11.262394, 
-    add1: '10899 Wilshire Blvd',
-    add2: 'Los Angeles, CA 90024',
-    phone: '310-443-7000',   
-    url: 'https://www.google.com'
+    add1: 'Piazza Santa Croce, 16', 
+    add2: ' Florence, Italy 50122',
+    phone: '+39 055 246 6105',   
+    url: 'https://www.santacroceopera.it/'
     }, {
 
     name: 'Palazzo Vecchio-TownHall',  
@@ -81,16 +81,16 @@ var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions)
 function initialize() {
     Points.forEach(loadMarkers);
 
-    //set up search input
-    var input = /** @type {HTMLInputElement} */(
-      document.getElementById('pac-input'));
+   
+   // var input = /** @type {HTMLInputElement} */(
+      //document.getElementById('pac-input'));
 
-    var types = document.getElementById('type-selector');
-    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-    map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
+   // var types = document.getElementById('type-selector');
+    //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    //map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
 
-    var autocomplete = new google.maps.places.Autocomplete(input);
-    autocomplete.bindTo('bounds', map);
+   //var autocomplete = new google.maps.places.Autocomplete(input);
+    //autocomplete.bindTo('bounds', map);
 
     var infowindow0 = new google.maps.InfoWindow();
     var marker0 = new google.maps.Marker({
@@ -98,7 +98,7 @@ function initialize() {
         anchorPoint: new google.maps.Point(0, -29)
     });
 
-    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+    google.maps.event.addListener(autocomplete, function() {
         infowindow0.close();
         marker0.setVisible(false);
         var place = autocomplete.getPlace();
@@ -107,12 +107,7 @@ function initialize() {
         }
 
   // If the place has a geometry, then present it on a map.
-        if (place.geometry.viewport) {
-            map.fitBounds(place.geometry.viewport);
-        } else {
-            map.setCenter(place.geometry.location);
-            map.setZoom(17);  // Why 17? Because it looks good.
-        }
+       
         marker0.setIcon(/** @type {google.maps.Icon} */({
             url: place.icon,
             size: new google.maps.Size(71, 71),
@@ -123,29 +118,17 @@ function initialize() {
         marker0.setPosition(place.geometry.location);
         marker0.setVisible(true);
 
-         var address = '';
-        if (place.address_components) {
-            address = [
-                (place.address_components[0] && place.address_components[0].short_name || ''),
-                (place.address_components[1] && place.address_components[1].short_name || ''),
-                (place.address_components[2] && place.address_components[2].short_name || '')
-            ].join(' ');
-        }
+         
 
  infowindow0.setContent('<div><strong>' + place.name + '</strong><br>' + address);
         infowindow0.open(map, marker0);
     });
 
-     function setupClickListener(id, types) {
-        var radioButton = document.getElementById(id);
-        google.maps.event.addDomListener(radioButton, 'click', function() {
-            autocomplete.setTypes(types);
-        });
-    }
+     
 
- setupClickListener('changetype-all', []);
-    setupClickListener('changetype-address', ['address']);
-    setupClickListener('changetype-establishment', ['establishment']);        
+ //setupClickListener('changetype-all', []);
+   // setupClickListener('changetype-address', ['address']);
+    //setupClickListener('changetype-establishment', ['establishment']);        
 
 $('#wiki-errors').click(function() {
         $('li').remove('.error');
@@ -176,20 +159,13 @@ function loadInfoWindow(element, marker) {
     });
 }
 
-markerBounce: function toggleBounce(marker) {
+ function toggleBounce(marker) {
     if (marker.getAnimation() != null) {
         marker.setAnimation(null);
     } else {
         marker.setAnimation(google.maps.Animation.BOUNCE);
     }
 }
-
-
-
-
-
-
-
 
 function viewModel() {
 
